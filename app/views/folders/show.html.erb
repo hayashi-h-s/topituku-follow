@@ -1,0 +1,39 @@
+
+<%#= 今度追加予定。jsで作成したゲームです。 %>
+
+<script>
+    'use strict';
+    const num = 16;
+    const winner = Math.floor(Math.random() * num); // 0 - 4
+
+    for (let i = 0; i < num; i++) {
+      const div = document.createElement('div');
+      // 定数 "div"にdivダグを代入して使用できるようにしている。divタグをを表示している
+      div.classList.add('box');
+      // divタグにclass="box"を追加している
+      div.addEventListener('click', () => {
+        if (i === winner) {
+          div.textContent = 'アウト';
+          div.classList.add('win');
+        } else {
+          div.textContent = 'セーフ!';
+          div.classList.add('lose');
+        }
+      });
+      document.body.appendChild(div);
+    }
+</script>
+
+<div class="game-page">
+  <div class="mx-auto w-90 topick-box">
+    <div class="card-body topick-box text-center">
+      <% @random.each do |post| %>
+        <h1 class="topick "><%= post.content %></h1>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <%= link_to "次のトピックへ",folder_path,class:"btn btn-info w-90 next" %>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<script>
+jQuery(function($){
+	$('.tab').click(function(){
+		$('.is-active').removeClass('is-active');
+		$(this).addClass('is-active');
+		$('.is-show').removeClass('is-show');
+        // クリックしたタブからインデックス番号を取得
+		const index = $(this).index();
+        // クリックしたタブと同じインデックス番号をもつコンテンツを表示
+		$('.panel').eq(index).addClass('is-show');
+	});
+});
+</script>
+
+<%= render partial: 'user_icon', locals: { user: @user } %>      
+
+<ul class="tab-group mt-3" style="width: 90%;">
+  <li class="tab is-active">Myフォルダ</li>
+  <li class="tab">いいね</li>
+</ul>
+<div class="panel-group mx-auto" style="width: 90%;">
+  <div class="panel is-show">
+    <% if @folders.blank? %>
+        <div class="card mx-auto">
+          <div class="card-body text-center">
+            フォルダが投稿されていません。
+          </div>
+        </div>
+    <% else %>
+      <%= render partial: 'folders/listfolder', locals: { folders: @folders} %>    
+    <% end %>
+  </div>
+  <div class="panel">
+    <% if @user.liked_folders.blank? %>
+      <div class="card mx-auto">
+        <div class="card-body text-center">
+          いいねをした投稿がありません。
+        </div>
+      </div>    
+    <% else %>
+      <%= render partial: 'folders/listfolder', locals: { folders: @user.liked_folders} %>      
+    <% end %>
+  </div>
+</div>
+<%= paginate @folders %>
