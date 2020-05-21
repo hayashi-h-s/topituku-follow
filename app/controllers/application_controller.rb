@@ -54,11 +54,5 @@ class ApplicationController < ActionController::Base
   def not_logged_in_user
     redirect_to folders_path if user_signed_in?
   end
-
-  # def current_user?
-  #   if current_user.blank?
-  #     flash[:danger] = "ログインしてください。"
-  #     redirect_to new_user_session_path
-  #   end
-  # end
+  
 end

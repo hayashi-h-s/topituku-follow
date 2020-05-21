@@ -1,5 +1,8 @@
 
-<%= render partial: 'users/user_icon', locals: { user: @folder.user } %>      
+
+
+<%= render partial: 'users/user_icon', locals: { user: @folder.user } %>
+
 <div class="text-center mt-4">
   <% if @folder.user == current_user %>
     <%= form_with model:[@folder, @folder.posts.build],local:true do |f| %>

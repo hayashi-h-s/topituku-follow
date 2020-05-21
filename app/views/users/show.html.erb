@@ -12,15 +12,9 @@ jQuery(function($){
 });
 </script>
 
-<%= render partial: 'user_icon', locals: { user: @user } %>      
 
-<% if current_user != @user %>
-  <% if @user.followed_by?(current_user) %>
-    <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
-  <% else %>
-    <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
-  <% end %>
-<% end %>
+
+<%= render partial: 'user_icon', locals: { user: @user } %> 
 
 <ul class="tab-group mt-3" style="width: 90%;">
   <li class="tab is-active">Myフォルダ</li>
