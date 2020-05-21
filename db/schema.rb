@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_062637) do
+ActiveRecord::Schema.define(version: 2020_05_21_082802) do
 
   create_table "folders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 2020_04_18_062637) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "folder_id"
     t.index ["folder_id"], name: "index_posts_on_folder_id"
+  end
+
+  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "following_id"
+    t.integer "follower_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
