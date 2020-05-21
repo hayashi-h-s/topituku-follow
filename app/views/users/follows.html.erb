@@ -1,0 +1,31 @@
+<h1>Users#follows</h1>
+<p>Find me in app/views/users/follows.html.erb</p>
+
+
+ーフォロー一覧ー
+<% @follow_list.each do |user| %>
+  <hr>
+  <p><span>email: </span><%= link_to user.email, user_path(user.id) %></p>
+    <p><%= user.name%></p>
+    <% if current_user != user %>
+        <% if user.followed_by?(current_user) %>
+            <p><%=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
+        <% else %>
+            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+        <% end %>
+    <% end %>
+<% end %>
+
+ーフォロワー一覧ー
+<% @follower_list.each do |folloew| %>
+    <hr>
+    <p><span>email: </span><%= link_to folloew.email, user_path(folloew.id) %></p>
+      <p><%= folloew.name%></p>
+      <% if current_user != folloew %>
+          <% if folloew.followed_by?(current_user) %>
+              <p><%=link_to "フォロー済み", user_relationships_path(folloew.id), method: :delete %></p>
+          <% else %>
+              <p><%=link_to "フォローする", user_relationships_path(folloew.id), method: :post %></p>
+          <% end %>
+      <% end %>
+  <% end %>

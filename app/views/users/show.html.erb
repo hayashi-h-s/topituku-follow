@@ -13,6 +13,8 @@ jQuery(function($){
 </script>
 
 
+<%= link_to "フォロー。フォロワー一覧へ", follows_user_path(@user)  %>
+<p><%#=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
 
 <%= render partial: 'user_icon', locals: { user: @user } %> 
 
