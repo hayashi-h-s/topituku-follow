@@ -1,7 +1,19 @@
+<script>
+jQuery(function($){
+	$('.tab').click(function(){
+		$('.is-active').removeClass('is-active');
+		$(this).addClass('is-active');
+		$('.is-show').removeClass('is-show');
+        // クリックしたタブからインデックス番号を取得
+		const index = $(this).index();
+        // クリックしたタブと同じインデックス番号をもつコンテンツを表示
+		$('.panel').eq(index).addClass('is-show');
+	});
+});
+</script>
+
 <h1>Users#follows</h1>
 <p>Find me in app/views/users/follows.html.erb</p>
-
-
 ーフォロー一覧ー
 <% @follow_list.each do |user| %>
   <hr>
@@ -17,15 +29,62 @@
 <% end %>
 
 ーフォロワー一覧ー
-<% @follower_list.each do |folloew| %>
+
+<% @follower_list.each do |followr| %>
     <hr>
-    <p><span>email: </span><%= link_to folloew.email, user_path(folloew.id) %></p>
-      <p><%= folloew.name%></p>
-      <% if current_user != folloew %>
-          <% if folloew.followed_by?(current_user) %>
-              <p><%=link_to "フォロー済み", user_relationships_path(folloew.id), method: :delete %></p>
+    <p><span>email: </span><%= link_to followr.email, user_path(followr.id) %></p>
+      <p><%= followr.name%></p>
+      <% if current_user != followr %>
+          <% if followr.followed_by?(current_user) %>
+              <p><%=link_to "フォロー済み", user_relationships_path(followr.id), method: :delete %></p>
           <% else %>
-              <p><%=link_to "フォローする", user_relationships_path(folloew.id), method: :post %></p>
+              <p><%=link_to "フォローする", user_relationships_path(followr.id), method: :post %></p>
           <% end %>
       <% end %>
   <% end %>
+
+  ーーーーーーーーーーーー
+
+<ul class="tab-group mt-3" style="width: 90%;">
+  <li class="tab is-active">フォロー中</li>
+  <li class="tab">フォロワー</li>
+</ul>
+
+<div class="panel-group mx-auto" style="width: 90%;">
+  <div class="panel is-show">
+    <% if @follow_list.blank? %>
+        <div class="card mx-auto">
+          <div class="card-body text-center">
+            まだ誰もフォローしていません。
+          </div>
+        </div>
+    <% else %>
+      <% @follow_list.each do |follow| %>
+        <div class="card mx-auto">
+          <div class="card-body">
+            <span class="card-title">
+              <% if follow.avatar? %>
+                <%= link_to (image_tag follow.avatar.to_s, class:"icon"), user_path(follow) %>
+              <% else %>
+                <%= link_to image_tag('https://topituku.s3-ap-northeast-1.amazonaws.com/default_user_image.jpg', class:"icon"), user_path(follow) %>
+              <% end %>
+              <%= link_to follow.name, user_path(follow) %>
+          </span>          
+            </div>
+          </div>
+        <% end %>   			
+    <% end %>
+  </div>
+  <div class="panel">
+    <% if @follower_list.blank? %>
+      <div class="card mx-auto">
+        <div class="card-body text-center">
+          まだフォロワーはいません。
+        </div>
+      </div>    
+    <% else %>
+      <%#= render partial: 'folders/listfolder', locals: { folders: @user.liked_folders} %>      
+      フォロワーの一覧をあとで作ります。
+    <% end %>
+  </div>
+</div>
